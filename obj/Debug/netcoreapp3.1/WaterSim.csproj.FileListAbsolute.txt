@@ -1,0 +1,13 @@
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\WaterSim.exe
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\WaterSim.deps.json
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\WaterSim.runtimeconfig.json
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\WaterSim.runtimeconfig.dev.json
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\WaterSim.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\WaterSim.pdb
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csprojAssemblyReference.cache
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.AssemblyInfoInputs.cache
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.AssemblyInfo.cs
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csproj.CoreCompileInputs.cache
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.pdb
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.genruntimeconfig.cache

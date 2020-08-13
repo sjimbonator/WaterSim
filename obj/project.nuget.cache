@@ -1,8 +1,24 @@
 {
   "version": 2,
-  "dgSpecHash": "1zWxl9ZN4irIGgj1Bnjtw3eYj8lJ8VoviGEEI3aNXP5CgavbeRfyfZPsD3iWSPB8vtu2V4UVmCIMVtTgpq/S+w==",
+  "dgSpecHash": "57H+qa/QzD4UR4KRMxPmaGC3aItAOS7EgmcSnGkLt4/t1yDnRuJ+fY5DmnOO6Ggn8ilfPiva7l/E40QDHgRHwg==",
   "success": true,
   "projectFilePath": "C:\\Users\\sjimm\\Documents\\GitHub\\WaterSim\\WaterSim.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\sjimm\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\sjimm\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\sjimm\\.nuget\\packages\\opentk\\3.2.0\\opentk.3.2.0.nupkg.sha512",
+    "C:\\Users\\sjimm\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'OpenTK 3.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "OpenTK",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

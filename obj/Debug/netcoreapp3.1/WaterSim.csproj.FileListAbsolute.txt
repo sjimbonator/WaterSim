@@ -7,7 +7,14 @@ C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\WaterSim.pdb
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csprojAssemblyReference.cache
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.AssemblyInfoInputs.cache
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.AssemblyInfo.cs
-C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csproj.CoreCompileInputs.cache
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.dll
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.pdb
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.genruntimeconfig.cache
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\OpenTK.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csproj.CopyComplete
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csproj.CoreCompileInputs.cache

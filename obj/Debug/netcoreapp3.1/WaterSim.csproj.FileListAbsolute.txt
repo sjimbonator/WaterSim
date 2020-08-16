@@ -18,3 +18,5 @@ C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\System.Drawing.
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csproj.CoreCompileInputs.cache
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shader.frag
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shader.vert

@@ -5,6 +5,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.IO;
 using System.Text;
+using System.Numerics;
 
 namespace WaterSim
 {
@@ -79,6 +80,19 @@ namespace WaterSim
                 disposedValue = true;
             }
         }
+
+        public void SetUniform(string name, bool value) => GL.Uniform1(GL.GetUniformLocation(Handle, name), Convert.ToInt32(value));
+
+        public void SetUniform(string name, int value) => GL.Uniform1(GL.GetUniformLocation(Handle, name), value);
+
+        public void SetUniform(string name, float value) => GL.Uniform1(GL.GetUniformLocation(Handle, name), value);
+
+        public void SetUniform(string name, OpenTK.Vector2 value) => GL.Uniform2(GL.GetUniformLocation(Handle, name), value);
+
+        public void SetUniform(string name, OpenTK.Vector3 value) => GL.Uniform3(GL.GetUniformLocation(Handle, name), value);
+
+        public void SetUniform(string name, OpenTK.Vector4 value) => GL.Uniform4(GL.GetUniformLocation(Handle, name), value);
+
 
         ~Shader()
         {

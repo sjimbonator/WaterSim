@@ -11,10 +11,10 @@ namespace WaterSim
     {
         private readonly float[] vertices = {
             // positions          // colors           // texture coords
-             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-             0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   2.0f, 2.0f,   // top right
+             0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   2.0f, 0.0f,   // bottom right
             -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 2.0f    // top left 
         };
 
         private readonly int[] indices = {
@@ -24,7 +24,8 @@ namespace WaterSim
 
         private int VertexBufferObject, VertexArrayObject, ElementBufferObject;
 
-        private int WallTexture;
+        private int Texture1;
+        private int Texture2;
 
         private Shader shader;
 
@@ -49,8 +50,15 @@ namespace WaterSim
             VertexArrayObject = GL.GenVertexArray();
             ElementBufferObject = GL.GenBuffer();
 
-            WallTexture = ContentPipe.LoadTexture("wall.jpg");
+            Texture1 = ContentPipe.LoadTexture("wall.jpg", TextureUnit.Texture1);
+            Texture2 = ContentPipe.LoadTexture("awesomeface.png", TextureUnit.Texture2);
+
             shader = new Shader("shader.vert", "shader.frag");
+
+            shader.Use();
+
+            shader.SetUniform("texture1", Texture1);
+            shader.SetUniform("texture2", Texture2);
 
             GL.BindVertexArray(VertexArrayObject);
 
@@ -82,7 +90,6 @@ namespace WaterSim
 
             // Custom code here
             // GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
-            GL.BindTexture(TextureTarget.Texture2D, WallTexture);
 
             shader.Use();
 

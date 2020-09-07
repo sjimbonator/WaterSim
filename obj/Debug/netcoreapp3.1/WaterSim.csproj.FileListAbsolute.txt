@@ -20,3 +20,4 @@ C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\runtimes\win\li
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csproj.CoreCompileInputs.cache
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shader.frag
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shader.vert
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\wall.jpg

@@ -10,20 +10,21 @@ namespace WaterSim
     class Game : GameWindow
     {
         private readonly float[] vertices = {
-            // positions         // colors
-            0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-           -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-            0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
+            // positions          // colors           // texture coords
+             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+             0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
         };
 
-        private readonly float[] texCoords = {
-            0.0f, 0.0f,  // lower-left corner  
-            1.0f, 0.0f,  // lower-right corner
-            0.5f, 1.0f   // top-center corner
+        private readonly int[] indices = {
+            0, 1, 3, // first triangle
+            1, 2, 3  // second triangle
         };
 
-        private int VertexBufferObject;
-        private int VertexArrayObject;
+        private int VertexBufferObject, VertexArrayObject, ElementBufferObject;
+
+        private int WallTexture;
 
         private Shader shader;
 
@@ -46,7 +47,9 @@ namespace WaterSim
 
             VertexBufferObject = GL.GenBuffer();
             VertexArrayObject = GL.GenVertexArray();
+            ElementBufferObject = GL.GenBuffer();
 
+            WallTexture = ContentPipe.LoadTexture("wall.jpg");
             shader = new Shader("shader.vert", "shader.frag");
 
             GL.BindVertexArray(VertexArrayObject);
@@ -54,13 +57,20 @@ namespace WaterSim
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ElementBufferObject);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(float), indices, BufferUsageHint.StaticDraw);
+
             // position attribute
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
             // color attribute
-            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
             GL.EnableVertexAttribArray(1);
+
+            // texture attribute
+            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
+            GL.EnableVertexAttribArray(2);
 
 
             base.OnLoad(e);
@@ -72,12 +82,13 @@ namespace WaterSim
 
             // Custom code here
             // GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
+            GL.BindTexture(TextureTarget.Texture2D, WallTexture);
 
             shader.Use();
 
             GL.BindVertexArray(VertexArrayObject);
 
-            GL.DrawArrays(BeginMode.Triangles, 0, 3);
+            GL.DrawElements(BeginMode.Triangles, 6, DrawElementsType.UnsignedInt, 0);
 
             GL.BindVertexArray(0);
 

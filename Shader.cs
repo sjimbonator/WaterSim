@@ -93,6 +93,8 @@ namespace WaterSim
 
         public void SetUniform(string name, OpenTK.Vector4 value) => GL.Uniform4(GL.GetUniformLocation(Handle, name), value);
 
+        public void SetUniform(string name, OpenTK.Matrix4 value) => GL.UniformMatrix4(GL.GetUniformLocation(Handle, name), true, ref value);
+
 
         ~Shader()
         {

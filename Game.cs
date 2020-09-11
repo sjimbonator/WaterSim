@@ -54,13 +54,8 @@ namespace WaterSim
             -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
         };
 
-        private int VertexBufferObject, VertexArrayObject;
-
-        private int Texture1;
-        private int Texture2;
-
         private Vector3[] cubePositions =
-        {
+{
             new Vector3( 0.0f,  0.0f,  0.0f),
             new Vector3( 2.0f,  5.0f, -15.0f),
             new Vector3(-1.5f, -2.2f, -2.5f),
@@ -73,8 +68,12 @@ namespace WaterSim
             new Vector3(-1.3f,  1.0f, -1.5f)
         };
 
-        private Shader shader;
+        private int VertexBufferObject, VertexArrayObject;
 
+        private int Texture1;
+        private int Texture2;
+
+        private Shader shader;
         private Camera camera;
 
         private double time;
@@ -156,9 +155,9 @@ namespace WaterSim
                 float angle = 20.0f * i;
                 var model = Matrix4.Identity;
 
-                model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle));
-                model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle));
-                model *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(0.5 * angle));
+                model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle * time));
+                model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle * time));
+                model *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(0.5 * angle * time));
                 model *= Matrix4.CreateTranslation(cubePositions[i]);
 
                 shader.SetUniform("model", model);

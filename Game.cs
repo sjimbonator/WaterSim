@@ -73,9 +73,33 @@ namespace WaterSim
             new Vector3(-1.3f,  1.0f, -1.5f)
         };
 
+        //camera
+
+        private Vector3 worldspaceUp = new Vector3(0, 1, 0);
+
+        private Vector3 cameraPos = new Vector3(0, 0, 3);
+        private Vector3 cameraFront = new Vector3(0, 0, -1);
+        private Vector3 cameraUp = new Vector3(0, 1, 0);
+        //private Vector3 cameraTarget = new Vector3(0, 0, 0);
+        //private Vector3 cameraDirection = Vector3.Normalize(cameraPos - cameraTarget);
+        //private Vector3 cameraRight = Vector3.Normalize(Vector3.Cross(worldspaceUp, cameraDirection));
+        // private Vector3 cameraUp = Vector3.Cross(cameraDirection, cameraRight);
+
+        private int lastX = 400;
+        private int lastY = 300;
+
+        private bool firstMouse = true;
+
+        private float yaw = -90.0f;
+        private float pitch = 0f;
+
+        //camera
+
         private Shader shader;
 
         private double time;
+        private float deltaTime = 0.0f;
+        private float lastFrame = 0.0f;
 
         private Matrix4 view;
         private Matrix4 projection;
@@ -96,8 +120,6 @@ namespace WaterSim
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Texture2D);
-
-            // Custom code here
 
             VertexBufferObject = GL.GenBuffer();
             VertexArrayObject = GL.GenVertexArray();
@@ -133,16 +155,49 @@ namespace WaterSim
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
+            KeyboardState input = Keyboard.GetState();
+            MouseState mInput = Mouse.GetState();
+
+            float xOffset = mInput.X - lastX;
+            float yOffset = mInput.Y - lastY;
+            lastX = mInput.X;
+            lastY = mInput.Y;
+
+            const float sensitivity = 0.1f;
+            xOffset *= sensitivity;
+            yOffset *= sensitivity;
+
+            yaw += xOffset;
+            pitch += yOffset;
+
+            if (pitch > 89.0f)
+                pitch = 89.0f;
+            if (pitch < -89.0f)
+                pitch = -89.0f;
+
+            Vector3 direction;
+            direction.X = (float)Math.Cos(MathHelper.DegreesToRadians(yaw)) * (float)Math.Cos(MathHelper.DegreesToRadians(pitch));
+            direction.Y = (float)Math.Sin(MathHelper.DegreesToRadians(pitch));
+            direction.Z = (float)Math.Sin(MathHelper.DegreesToRadians(yaw)) * (float)Math.Cos(MathHelper.DegreesToRadians(pitch));
+            cameraFront = Vector3.Normalize(direction);
+
             time += e.Time;
+            deltaTime = (float)time - lastFrame;
+            lastFrame = (float)time;
+
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             // GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
 
             shader.Use();
 
-            //var model = Matrix4.Identity * Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(0.5f * (time * 50.0f)));
-            //model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(time * 50.0f));
-            //shader.SetUniform("model", model);
+            float cameraSpeed = (float)2.5 * deltaTime;
+            if (input.IsKeyDown(Key.W)) cameraPos += cameraSpeed * cameraFront;
+            if (input.IsKeyDown(Key.A)) cameraPos -= Vector3.Normalize(Vector3.Cross(cameraFront, cameraUp)) * cameraSpeed;
+            if (input.IsKeyDown(Key.S)) cameraPos -= cameraSpeed * cameraFront;
+            if (input.IsKeyDown(Key.D)) cameraPos += Vector3.Normalize(Vector3.Cross(cameraFront, cameraUp)) * cameraSpeed;
+
+            view = Matrix4.LookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
             shader.SetUniform("view", view);
             shader.SetUniform("projection", projection);

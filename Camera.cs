@@ -8,7 +8,6 @@ namespace WaterSim
 {
     class Camera
     {
-        private Vector3 cameraPos;
         private Vector3 cameraFront = new Vector3(0, 0, -1);
         private Vector3 cameraUp = new Vector3(0, 1, 0);
 
@@ -21,10 +20,11 @@ namespace WaterSim
         private float yaw = -90.0f;
         private float pitch = 0f;
         public Matrix4 ViewMatrix { get; private set; }
+        public Vector3 Position { get; private set; }
 
-        public Camera(Vector3 cameraPos, float sensitivity, float speed, int screenWidth = 800, int screenHeight = 600)
+        public Camera(Vector3 Position, float sensitivity, float speed, int screenWidth = 800, int screenHeight = 600)
         {
-            this.cameraPos = cameraPos;
+            this.Position = Position;
             this.sensitivity = sensitivity;
             this.speed = speed;
             lastX = screenWidth / 2;
@@ -65,12 +65,12 @@ namespace WaterSim
             cameraFront = Vector3.Normalize(direction);
 
             float adjustedSpeed = speed * deltaTime;
-            if (kInput.IsKeyDown(Key.W)) cameraPos += adjustedSpeed * cameraFront;
-            if (kInput.IsKeyDown(Key.A)) cameraPos -= Vector3.Normalize(Vector3.Cross(cameraFront, cameraUp)) * adjustedSpeed;
-            if (kInput.IsKeyDown(Key.S)) cameraPos -= adjustedSpeed * cameraFront;
-            if (kInput.IsKeyDown(Key.D)) cameraPos += Vector3.Normalize(Vector3.Cross(cameraFront, cameraUp)) * adjustedSpeed;
+            if (kInput.IsKeyDown(Key.W)) Position += adjustedSpeed * cameraFront;
+            if (kInput.IsKeyDown(Key.A)) Position -= Vector3.Normalize(Vector3.Cross(cameraFront, cameraUp)) * adjustedSpeed;
+            if (kInput.IsKeyDown(Key.S)) Position -= adjustedSpeed * cameraFront;
+            if (kInput.IsKeyDown(Key.D)) Position += Vector3.Normalize(Vector3.Cross(cameraFront, cameraUp)) * adjustedSpeed;
 
-            ViewMatrix = Matrix4.LookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+            ViewMatrix = Matrix4.LookAt(Position, Position + cameraFront, cameraUp);
         }
 
         public void LookAt(Vector3 point)

@@ -10,48 +10,48 @@ namespace WaterSim
     class Game : GameWindow
     {
         private readonly float[] vertices = {
-             //positions          //texcoords
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+             //positions          //normals
+            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+             0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
 
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
         };
 
         private Vector3[] cubePositions =
@@ -68,19 +68,19 @@ namespace WaterSim
             new Vector3(-1.3f,  1.0f, -1.5f)
         };
 
-        private int VertexBufferObject, VertexArrayObject;
+        private Vector3 lightPos = new Vector3(1.2f, 1.0f, 2.0f);
 
-        private int Texture1;
-        private int Texture2;
+        private int VertexBufferObject, VertexArrayObject;
+        private int lightVao;
 
         private Shader shader;
+        private Shader lightCubeShader;
         private Camera camera;
 
         private double time;
         private float deltaTime = 0.0f;
         private float lastFrame = 0.0f;
 
-        private Matrix4 view;
         private Matrix4 projection;
 
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title) { }
@@ -95,10 +95,8 @@ namespace WaterSim
             lastFrame = (float)time;
 
             camera.Update(deltaTime);
-            view = camera.ViewMatrix;
 
             base.OnUpdateFrame(e);
-
         }
 
         protected override void OnLoad(EventArgs e)
@@ -110,27 +108,32 @@ namespace WaterSim
             VertexBufferObject = GL.GenBuffer();
             VertexArrayObject = GL.GenVertexArray();
 
-            GL.BindVertexArray(VertexArrayObject);
-
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
+            GL.BindVertexArray(VertexArrayObject);
+
             // position attribute
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
-            // texture attribute
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+            // normal attribute
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
             GL.EnableVertexAttribArray(1);
 
-            Texture1 = ContentPipe.LoadTexture("wall.jpg", TextureUnit.Texture1);
-            Texture2 = ContentPipe.LoadTexture("awesomeface.png", TextureUnit.Texture2);
+            lightVao = GL.GenVertexArray();
+            GL.BindVertexArray(lightVao);
 
-            shader = new Shader("shader.vert", "shader.frag");
+            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
+
+            // position attribute
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(0);
+
+            shader = new Shader("shaders/cube/shader.vert", "shaders/cube/shader.frag");
             shader.Use();
-
-            shader.SetUniform("texture1", Texture1);
-            shader.SetUniform("texture2", Texture2);
+            lightCubeShader = new Shader("shaders/light/shader.vert", "shaders/light/shader.frag");
+            lightCubeShader.Use();
 
             camera = new Camera(new Vector3(0, 0, 3), 0.1f, 5f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Width / (float)Height, 0.1f, 100.0f);
@@ -146,24 +149,43 @@ namespace WaterSim
 
             shader.Use();
 
-            shader.SetUniform("view", view);
+            shader.SetUniform("objectColor", new Vector3(1.0f, 0.5f, 0.31f));
+            shader.SetUniform("viewPos", camera.Position);
+            shader.SetUniform("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
+            shader.SetUniform("lightPos", lightPos);
+
+            shader.SetUniform("view", camera.ViewMatrix);
             shader.SetUniform("projection", projection);
 
-            GL.BindVertexArray(VertexArrayObject);
             for (int i = 0; i < 10; i++)
             {
                 float angle = 20.0f * i;
                 var model = Matrix4.Identity;
 
-                model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle * time));
-                model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle * time));
-                model *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(0.5 * angle * time));
+                //model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle * time));
+                //model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle * time));
+                //model *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(0.5 * angle * time));
                 model *= Matrix4.CreateTranslation(cubePositions[i]);
 
                 shader.SetUniform("model", model);
 
+                GL.BindVertexArray(VertexArrayObject);
                 GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
             }
+
+            lightCubeShader.Use();
+
+            var lightCubeModel = Matrix4.Identity;
+            lightCubeModel *= Matrix4.CreateScale(0.2f);
+            lightCubeModel *= Matrix4.CreateTranslation(lightPos);
+
+            lightCubeShader.SetUniform("view", camera.ViewMatrix);
+            lightCubeShader.SetUniform("projection", projection);
+            lightCubeShader.SetUniform("model", lightCubeModel);
+
+            GL.BindVertexArray(lightVao);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+
 
             Context.SwapBuffers();
 

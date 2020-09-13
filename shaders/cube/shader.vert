@@ -15,7 +15,7 @@ void main()
 {
 
     gl_Position = vec4(aPosition, 1.0) * model * view * projection;
-    Normal = mat3(transpose(inverse(model))) * aNormal;  
+    Normal = aNormal * mat3(transpose(inverse(model)));  
     FragPos = vec3(vec4(aPosition, 1.0)* model);
     TexCoords = aTexCoords;
 }

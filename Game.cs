@@ -55,7 +55,7 @@ namespace WaterSim
         };
 
         private Vector3[] cubePositions =
-{
+        {
             new Vector3(0.0f, 0.0f, 0.0f),
             new Vector3(2.0f, 5.0f, -15.0f),
             new Vector3(-1.5f, -2.2f, -2.5f),
@@ -68,7 +68,7 @@ namespace WaterSim
             new Vector3(-1.3f, 1.0f, -1.5f)
         };
 
-        private Vector3 lightPos = new Vector3(6f, 1.0f, 6.0f);
+        private Vector3 lightPos = new Vector3(1.2f, 1.0f, 2.0f);
 
         private int VertexBufferObject, VertexArrayObject;
         private int lightVao;
@@ -151,7 +151,7 @@ namespace WaterSim
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
 
@@ -159,28 +159,35 @@ namespace WaterSim
 
             shader.SetUniform("material.diffuse", 0);
             shader.SetUniform("material.specular", 1);
-            shader.SetUniform("material.shininess", 64f);
+            shader.SetUniform("material.shininess", 32f);
 
             Vector3 lightColor = new Vector3(1.0f);
 
-            shader.SetUniform("light.ambient", lightColor * 0.1f);
-            shader.SetUniform("light.diffuse", lightColor * 0.8f);
+            shader.SetUniform("light.position", lightPos);
+
+            shader.SetUniform("light.ambient", lightColor * 0.2f);
+            shader.SetUniform("light.diffuse", lightColor * 0.9f);
             shader.SetUniform("light.specular", new Vector3(1.0f));
-            shader.SetUniform("light.direction", new Vector3(-0.2f, -1.0f, -0.3f));
+
+            shader.SetUniform("light.constant", 1.0f);
+            shader.SetUniform("light.linear", 0.09f);
+            shader.SetUniform("light.quadratic", 0.032f);
 
             shader.SetUniform("viewPos", camera.Position);
 
 
             shader.SetUniform("view", camera.ViewMatrix);
             shader.SetUniform("projection", projection);
+            shader.SetUniform("model", Matrix4.Identity);
 
             GL.BindVertexArray(VertexArrayObject);
             for (int i = 0; i < cubePositions.Length; i++)
             {
                 var model = Matrix4.Identity;
-                model *= Matrix4.CreateTranslation(cubePositions[i]);
+
                 float angle = 20.0f * i;
-                model *= Matrix4.CreateFromAxisAngle(new Vector3(1.0f, 0.3f, 0.5f), angle);
+                model *= Matrix4.CreateFromAxisAngle(new Vector3(1.0f, 0.3f, 0.5f), MathHelper.DegreesToRadians(angle));
+                model *= Matrix4.CreateTranslation(cubePositions[i]);
 
                 //model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle));
                 //model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle));
@@ -191,20 +198,20 @@ namespace WaterSim
                 GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
             }
 
-            //lightCubeShader.Use();
+            lightCubeShader.Use();
 
-            //var lightCubeModel = Matrix4.Identity;
-            //lightCubeModel *= Matrix4.CreateScale(0.2f);
-            //lightCubeModel *= Matrix4.CreateTranslation(lightPos);
+            var lightCubeModel = Matrix4.Identity;
+            lightCubeModel *= Matrix4.CreateScale(0.2f);
+            lightCubeModel *= Matrix4.CreateTranslation(lightPos);
 
-            //lightCubeShader.SetUniform("view", camera.ViewMatrix);
-            //lightCubeShader.SetUniform("projection", projection);
-            //lightCubeShader.SetUniform("model", lightCubeModel);
+            lightCubeShader.SetUniform("view", camera.ViewMatrix);
+            lightCubeShader.SetUniform("projection", projection);
+            lightCubeShader.SetUniform("model", lightCubeModel);
 
-            //lightCubeShader.SetUniform("lightColor", lightColor);
+            lightCubeShader.SetUniform("lightColor", lightColor);
 
-            //GL.BindVertexArray(lightVao);
-            //GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+            GL.BindVertexArray(lightVao);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
 
             Context.SwapBuffers();

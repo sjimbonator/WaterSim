@@ -10,69 +10,62 @@ namespace WaterSim
     class Game : GameWindow
     {
         private readonly float[] vertices = {
-             //positions          //normals
-            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-             0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+            // positions          // normals           // texture coords
+            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+             0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-            -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-            -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-             0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-             0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
         };
 
         private Vector3[] cubePositions =
 {
-            new Vector3( 0.0f,  0.0f,  0.0f),
-            new Vector3( 2.0f,  5.0f, -15.0f),
-            new Vector3(-1.5f, -2.2f, -2.5f),
-            new Vector3(-3.8f, -2.0f, -12.3f),
-            new Vector3( 2.4f, -0.4f, -3.5f),
-            new Vector3(-1.7f,  3.0f, -7.5f),
-            new Vector3( 1.3f, -2.0f, -2.5f),
-            new Vector3( 1.5f,  2.0f, -2.5f),
-            new Vector3( 1.5f,  0.2f, -1.5f),
-            new Vector3(-1.3f,  1.0f, -1.5f)
+            new Vector3( 1.0f,  1.0f,  0.0f),
         };
 
-        private Vector3 lightPos = new Vector3(-22.2f, 1.0f, -8.0f);
+        private Vector3 lightPos = new Vector3(1.2f, 1.0f, 2.0f);
 
         private int VertexBufferObject, VertexArrayObject;
         private int lightVao;
 
+        private int DiffuseMap;
+        private int SpecularMap;
         private Shader shader;
         private Shader lightCubeShader;
         private Camera camera;
@@ -114,12 +107,16 @@ namespace WaterSim
             GL.BindVertexArray(VertexArrayObject);
 
             // position attribute
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
             // normal attribute
-            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
             GL.EnableVertexAttribArray(1);
+
+            // texCoord attribute
+            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
+            GL.EnableVertexAttribArray(2);
 
             lightVao = GL.GenVertexArray();
             GL.BindVertexArray(lightVao);
@@ -127,8 +124,11 @@ namespace WaterSim
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
 
             // position attribute
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
+
+            DiffuseMap = ContentPipe.LoadTexture("container2.png", TextureUnit.Texture0);
+            SpecularMap = ContentPipe.LoadTexture("container2_specular.png", TextureUnit.Texture1);
 
             shader = new Shader("shaders/cube/shader.vert", "shaders/cube/shader.frag");
             shader.Use();
@@ -147,32 +147,16 @@ namespace WaterSim
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
 
-            //lightPos.Y += (float)Math.Cos(time) / 10; //Animated light position
-            //lightPos.Z += (float)Math.Cos(time) / 3;
-            //lightPos.X += (float)Math.Sin(time) / 3;
-
             shader.Use();
 
-            //Jade material
-            shader.SetUniform("material.ambient", new Vector3(0.135f, 0.2225f, 0.1575f));
-            shader.SetUniform("material.diffuse", new Vector3(0.54f, 0.89f, 0.63f));
-            shader.SetUniform("material.specular", new Vector3(0.316228f, 0.316228f, 0.316228f));
-            shader.SetUniform("material.shininess", 12.8f);
-
-            //Vector3 lightColor;
-            //lightColor.X = (float)Math.Sin(time * 2); //animated light color
-            //lightColor.Y = (float)Math.Sin(time * 0.5);
-            //lightColor.Z = (float)Math.Sin(time * 1.3);
-
-            //Vector3 diffuseColor = lightColor * new Vector3(0.5f);
-            //Vector3 ambientColor = diffuseColor * new Vector3(0.2f);
+            shader.SetUniform("material.diffuse", 0);
+            shader.SetUniform("material.specular", 1);
+            shader.SetUniform("material.shininess", 64f);
 
             Vector3 lightColor = new Vector3(1.0f);
-            Vector3 diffuseColor = new Vector3(1.0f);
-            Vector3 ambientColor = new Vector3(1.0f);
 
-            shader.SetUniform("light.ambient", ambientColor);
-            shader.SetUniform("light.diffuse", diffuseColor);
+            shader.SetUniform("light.ambient", lightColor * 0.2f);
+            shader.SetUniform("light.diffuse", lightColor * 0.5f);
             shader.SetUniform("light.specular", new Vector3(1.0f));
 
             shader.SetUniform("viewPos", camera.Position);
@@ -181,14 +165,11 @@ namespace WaterSim
             shader.SetUniform("view", camera.ViewMatrix);
             shader.SetUniform("projection", projection);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < cubePositions.Length; i++)
             {
                 float angle = 20.0f * i;
                 var model = Matrix4.Identity;
 
-                //model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle * time)); //Turning cubes
-                //model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle * time));
-                //model *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(0.5 * angle * time));
                 model *= Matrix4.CreateTranslation(cubePositions[i]);
 
                 shader.SetUniform("model", model);

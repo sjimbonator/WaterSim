@@ -68,7 +68,7 @@ namespace WaterSim
             new Vector3(-1.3f,  1.0f, -1.5f)
         };
 
-        private Vector3 lightPos = new Vector3(1.2f, 1.0f, 2.0f);
+        private Vector3 lightPos = new Vector3(-22.2f, 1.0f, -8.0f);
 
         private int VertexBufferObject, VertexArrayObject;
         private int lightVao;
@@ -147,11 +147,30 @@ namespace WaterSim
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
 
+            //lightPos.Y += (float)Math.Cos(time) / 10;
+            //lightPos.Z += (float)Math.Cos(time) / 3;
+            //lightPos.X += (float)Math.Sin(time) / 3;
+
             shader.Use();
 
-            shader.SetUniform("objectColor", new Vector3(1.0f, 0.5f, 0.31f));
+            shader.SetUniform("material.ambient", new Vector3(0.135f, 0.2225f, 0.1575f));
+            shader.SetUniform("material.diffuse", new Vector3(0.54f, 0.89f, 0.63f));
+            shader.SetUniform("material.specular", new Vector3(0.316228f, 0.316228f, 0.316228f));
+            shader.SetUniform("material.shininess", 12.8f);
+
+            Vector3 lightColor;
+            lightColor.X = (float)Math.Sin(time * 2);
+            lightColor.Y = (float)Math.Sin(time * 0.5);
+            lightColor.Z = (float)Math.Sin(time * 1.3);
+
+            Vector3 diffuseColor = lightColor * new Vector3(0.5f);
+            Vector3 ambientColor = diffuseColor * new Vector3(0.2f);
+
+            shader.SetUniform("light.ambient", ambientColor);
+            shader.SetUniform("light.diffuse", diffuseColor);
+            shader.SetUniform("light.specular", new Vector3(1.0f));
+
             shader.SetUniform("viewPos", camera.Position);
-            shader.SetUniform("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
             shader.SetUniform("lightPos", lightPos);
 
             shader.SetUniform("view", camera.ViewMatrix);
@@ -182,6 +201,8 @@ namespace WaterSim
             lightCubeShader.SetUniform("view", camera.ViewMatrix);
             lightCubeShader.SetUniform("projection", projection);
             lightCubeShader.SetUniform("model", lightCubeModel);
+
+            lightCubeShader.SetUniform("lightColor", lightColor);
 
             GL.BindVertexArray(lightVao);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 36);

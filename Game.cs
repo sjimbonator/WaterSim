@@ -147,24 +147,29 @@ namespace WaterSim
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
 
-            //lightPos.Y += (float)Math.Cos(time) / 10;
+            //lightPos.Y += (float)Math.Cos(time) / 10; //Animated light position
             //lightPos.Z += (float)Math.Cos(time) / 3;
             //lightPos.X += (float)Math.Sin(time) / 3;
 
             shader.Use();
 
+            //Jade material
             shader.SetUniform("material.ambient", new Vector3(0.135f, 0.2225f, 0.1575f));
             shader.SetUniform("material.diffuse", new Vector3(0.54f, 0.89f, 0.63f));
             shader.SetUniform("material.specular", new Vector3(0.316228f, 0.316228f, 0.316228f));
             shader.SetUniform("material.shininess", 12.8f);
 
-            Vector3 lightColor;
-            lightColor.X = (float)Math.Sin(time * 2);
-            lightColor.Y = (float)Math.Sin(time * 0.5);
-            lightColor.Z = (float)Math.Sin(time * 1.3);
+            //Vector3 lightColor;
+            //lightColor.X = (float)Math.Sin(time * 2); //animated light color
+            //lightColor.Y = (float)Math.Sin(time * 0.5);
+            //lightColor.Z = (float)Math.Sin(time * 1.3);
 
-            Vector3 diffuseColor = lightColor * new Vector3(0.5f);
-            Vector3 ambientColor = diffuseColor * new Vector3(0.2f);
+            //Vector3 diffuseColor = lightColor * new Vector3(0.5f);
+            //Vector3 ambientColor = diffuseColor * new Vector3(0.2f);
+
+            Vector3 lightColor = new Vector3(1.0f);
+            Vector3 diffuseColor = new Vector3(1.0f);
+            Vector3 ambientColor = new Vector3(1.0f);
 
             shader.SetUniform("light.ambient", ambientColor);
             shader.SetUniform("light.diffuse", diffuseColor);
@@ -181,7 +186,7 @@ namespace WaterSim
                 float angle = 20.0f * i;
                 var model = Matrix4.Identity;
 
-                //model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle * time));
+                //model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle * time)); //Turning cubes
                 //model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle * time));
                 //model *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(0.5 * angle * time));
                 model *= Matrix4.CreateTranslation(cubePositions[i]);

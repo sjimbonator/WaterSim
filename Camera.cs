@@ -21,6 +21,7 @@ namespace WaterSim
         private float pitch = 0f;
         public Matrix4 ViewMatrix { get; private set; }
         public Vector3 Position { get; private set; }
+        public Vector3 CameraFront { get => cameraFront; }
 
         public Camera(Vector3 Position, float sensitivity, float speed, int screenWidth = 800, int screenHeight = 600)
         {

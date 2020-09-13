@@ -163,7 +163,10 @@ namespace WaterSim
 
             Vector3 lightColor = new Vector3(1.0f);
 
-            shader.SetUniform("light.position", lightPos);
+            shader.SetUniform("light.position", camera.Position);
+            shader.SetUniform("light.direction", camera.CameraFront);
+            shader.SetUniform("light.cutOff", (float)Math.Cos(MathHelper.DegreesToRadians(12.5)));
+            shader.SetUniform("light.outerCutOff", (float)Math.Cos(MathHelper.DegreesToRadians(17.5)));
 
             shader.SetUniform("light.ambient", lightColor * 0.2f);
             shader.SetUniform("light.diffuse", lightColor * 0.9f);

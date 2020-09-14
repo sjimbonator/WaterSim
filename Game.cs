@@ -3,6 +3,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace WaterSim
@@ -91,6 +92,8 @@ namespace WaterSim
 
         private Matrix4 projection;
 
+        private Plane testPlane;
+
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title) { }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -151,6 +154,9 @@ namespace WaterSim
 
             camera = new Camera(new Vector3(0, 0, 3), 0.1f, 5f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Width / (float)Height, 0.1f, 100.0f);
+
+            var test = new Dictionary<String, dynamic>();
+            testPlane = new Plane(lightCubeShader, test);
 
             base.OnLoad(e);
         }
@@ -242,8 +248,13 @@ namespace WaterSim
                 GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
             }
 
+            var test = new Dictionary<String, dynamic>();
+            test.Add("model", Matrix4.Identity);
+            test.Add("view", camera.ViewMatrix);
+            test.Add("projection", projection);
+            test.Add("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
 
-
+            testPlane.Draw();
             Context.SwapBuffers();
 
             base.OnRenderFrame(e);

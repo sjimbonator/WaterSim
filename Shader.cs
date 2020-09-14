@@ -95,6 +95,8 @@ namespace WaterSim
 
         public void SetUniform(string name, OpenTK.Matrix4 value) => GL.UniformMatrix4(GL.GetUniformLocation(Handle, name), true, ref value);
 
+        //TODO: support SetUniform for Uniform Buffer Objects
+        //TODO: support SetUniform for the texture class directly instead of via int?
 
         ~Shader()
         {

@@ -152,7 +152,7 @@ namespace WaterSim
             lightCubeShader = new Shader("shaders/light/shader.vert", "shaders/light/shader.frag");
             lightCubeShader.Use();
 
-            camera = new Camera(new Vector3(0, 0, 3), 0.1f, 5f);
+            camera = new Camera(new Vector3(10, 10, 10), 0.1f, 5f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Width / (float)Height, 0.1f, 100.0f);
 
             var test = new Dictionary<String, dynamic>();
@@ -166,6 +166,18 @@ namespace WaterSim
             GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
+
+            var test = new Dictionary<String, dynamic>();
+            var modeul = Matrix4.Identity;
+            modeul *= Matrix4.CreateTranslation(new Vector3(-100, -10, -100));
+
+            test.Add("model", modeul);
+            test.Add("view", camera.ViewMatrix);
+            test.Add("projection", projection);
+            test.Add("lightColor", new Vector3(1.0f, 0.0f, 0.0f));
+            testPlane.Uniforms = test;
+
+            testPlane.Draw();
 
             shader.Use();
 
@@ -248,13 +260,6 @@ namespace WaterSim
                 GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
             }
 
-            var test = new Dictionary<String, dynamic>();
-            test.Add("model", Matrix4.Identity);
-            test.Add("view", camera.ViewMatrix);
-            test.Add("projection", projection);
-            test.Add("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
-
-            testPlane.Draw();
             Context.SwapBuffers();
 
             base.OnRenderFrame(e);

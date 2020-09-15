@@ -6,18 +6,8 @@ using OpenTK.Graphics.OpenGL;
 
 namespace WaterSim
 {
-    class Plane : IShape
+    class Plane : Shape
     {
-        private Shader _shader;
-        private Dictionary<String, dynamic> _uniforms;
-
-        private float[] _vertices;
-        private int[] _indices;
-
-        private int VAO, VBO, EBO;
-
-        public Dictionary<String, dynamic> Uniforms { get => _uniforms; set => _uniforms = value; }
-
         public Plane(Shader shader, Dictionary<String, dynamic> uniforms, float size = 200, int VertexCount = 32)
         {
             _shader = shader;
@@ -25,19 +15,6 @@ namespace WaterSim
 
             GeneratePlane(size, VertexCount);
             Setup();
-        }
-
-        public void Draw()
-        {
-            _shader.Use();
-            foreach (KeyValuePair<string, dynamic> entry in _uniforms)
-            {
-                _shader.SetUniform(entry.Key, entry.Value);
-            }
-            // draw mesh
-            GL.BindVertexArray(VAO);
-            GL.DrawElements(BeginMode.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
-            GL.BindVertexArray(0);
         }
 
         private void GeneratePlane(float size, int VertexCount)
@@ -67,6 +44,7 @@ namespace WaterSim
             }
 
             // generate indices
+            _useEBO = true;
             _indices = new int[6 * (VertexCount - 1) * (VertexCount - 1)];
             int indicesPointer = 0;
             for (int i = 0; i < VertexCount - 1; i++)
@@ -86,36 +64,5 @@ namespace WaterSim
                 }
             }
         }
-
-        private void Setup()
-        {
-            VAO = GL.GenVertexArray();
-            VBO = GL.GenBuffer();
-            EBO = GL.GenBuffer();
-
-            GL.BindVertexArray(VAO);
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
-            GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
-
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, _indices.Length * sizeof(int), _indices, BufferUsageHint.StaticDraw);
-
-            // position attribute
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
-
-            // normal attribute
-            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
-            GL.EnableVertexAttribArray(1);
-
-            // texCoord attribute
-            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
-            GL.EnableVertexAttribArray(2);
-
-            // unbind VAO
-            GL.BindVertexArray(0);
-        }
-
     }
 }

@@ -4,56 +4,13 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace WaterSim
 {
     class Game : GameWindow
     {
-        private readonly float[] vertices = {
-            // positions          // normals           // texture coords
-            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-             0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-
-            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-             0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-             0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-        };
 
         private readonly Vector3[] cubePositions =
         {
@@ -77,9 +34,6 @@ namespace WaterSim
             new Vector3(0.0f, 0.0f, -3.0f)
         };
 
-        private int VertexBufferObject, VertexArrayObject;
-        private int lightVao;
-
         private int DiffuseMap;
         private int SpecularMap;
         private Shader shader;
@@ -93,6 +47,11 @@ namespace WaterSim
         private Matrix4 projection;
 
         private Plane testPlane;
+        private Cube container;
+        private Cube lightCube;
+
+        private Dictionary<String, dynamic> containerUniforms;
+        private Dictionary<String, dynamic> lightCubeUniforms;
 
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title) { }
 
@@ -115,35 +74,6 @@ namespace WaterSim
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
 
-            VertexBufferObject = GL.GenBuffer();
-            VertexArrayObject = GL.GenVertexArray();
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-
-            GL.BindVertexArray(VertexArrayObject);
-
-            // position attribute
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
-
-            // normal attribute
-            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 3 * sizeof(float));
-            GL.EnableVertexAttribArray(1);
-
-            // texCoord attribute
-            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
-            GL.EnableVertexAttribArray(2);
-
-            lightVao = GL.GenVertexArray();
-            GL.BindVertexArray(lightVao);
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-
-            // position attribute
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
-
             DiffuseMap = ContentPipe.LoadTexture("container2.png", TextureUnit.Texture0);
             SpecularMap = ContentPipe.LoadTexture("container2_specular.png", TextureUnit.Texture1);
 
@@ -155,8 +85,53 @@ namespace WaterSim
             camera = new Camera(new Vector3(10, 10, 10), 0.1f, 5f);
             projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Width / (float)Height, 0.1f, 100.0f);
 
-            var test = new Dictionary<String, dynamic>();
-            testPlane = new Plane(lightCubeShader, test);
+            testPlane = new Plane(lightCubeShader, new Dictionary<String, dynamic>());
+            container = new Cube(shader, new Dictionary<String, dynamic>());
+            lightCube = new Cube(lightCubeShader, new Dictionary<String, dynamic>());
+
+            containerUniforms = new Dictionary<string, dynamic>();
+            containerUniforms["material.diffuse"] = 0;
+            containerUniforms["material.specular"] = 1;
+            containerUniforms["material.shininess"] = 32f;
+
+            containerUniforms["dirLight.direction"] = new Vector3(-0.2f, -1.0f, -0.3f);
+            containerUniforms["dirLight.ambient"] = new Vector3(0.05f, 0.05f, 0.05f);
+            containerUniforms["dirLight.diffuse"] = new Vector3(0.4f, 0.4f, 0.4f);
+            containerUniforms["dirLight.specular"] = new Vector3(0.5f, 0.5f, 0.5f);
+
+            for (int i = 0; i < pointLightPositions.Length; i++)
+            {
+                containerUniforms[$"pointLights[{i}].position"] = pointLightPositions[i];
+                containerUniforms[$"pointLights[{i}].ambient"] = new Vector3(0.05f, 0.05f, 0.05f);
+                containerUniforms[$"pointLights[{i}].diffuse"] = new Vector3(0.8f, 0.8f, 0.8f);
+                containerUniforms[$"pointLights[{i}].specular"] = new Vector3(1.0f, 1.0f, 1.0f);
+                containerUniforms[$"pointLights[{i}].constant"] = 1.0f;
+                containerUniforms[$"pointLights[{i}].linear"] = 0.09f;
+                containerUniforms[$"pointLights[{i}].quadratic"] = 0.032f;
+            }
+
+            containerUniforms["spotLight.position"] = camera.Position;
+            containerUniforms["spotLight.direction"] = camera.CameraFront;
+            containerUniforms["spotLight.ambient"] = new Vector3(0.0f, 0.0f, 0.0f);
+            containerUniforms["spotLight.diffuse"] = new Vector3(1.0f, 1.0f, 1.0f);
+            containerUniforms["spotLight.specular"] = new Vector3(1.0f, 1.0f, 1.0f);
+            containerUniforms["spotLight.constant"] = 1.0f;
+            containerUniforms["spotLight.linear"] = 0.09f;
+            containerUniforms["spotLight.quadratic"] = 0.032f;
+            containerUniforms["spotLight.cutOff"] = (float)Math.Cos(MathHelper.DegreesToRadians(12.5f));
+            containerUniforms["spotLight.outerCutOff"] = (float)Math.Cos(MathHelper.DegreesToRadians(17.5f));
+            containerUniforms["viewPos"] = camera.Position;
+            containerUniforms["view"] = camera.ViewMatrix;
+            containerUniforms["projection"] = projection;
+            containerUniforms["model"] = Matrix4.Identity;
+            container.Uniforms = containerUniforms;
+
+            lightCubeUniforms = new Dictionary<string, dynamic>();
+            lightCubeUniforms["view"] = camera.ViewMatrix;
+            lightCubeUniforms["projection"] = projection;
+            lightCubeUniforms["model"] = Matrix4.Identity;
+            lightCubeUniforms["lightColor"] = new Vector3(1.0f, 1.0f, 1.0f);
+            lightCube.Uniforms = lightCubeUniforms;
 
             base.OnLoad(e);
         }
@@ -167,97 +142,43 @@ namespace WaterSim
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
 
-            var test = new Dictionary<String, dynamic>();
-            var modeul = Matrix4.Identity;
-            modeul *= Matrix4.CreateTranslation(new Vector3(-100, -10, -100));
+            var planeUniforms = new Dictionary<String, dynamic>();
+            var planeModel = Matrix4.Identity;
+            planeModel *= Matrix4.CreateTranslation(new Vector3(-100, -10, -100));
 
-            test.Add("model", modeul);
-            test.Add("view", camera.ViewMatrix);
-            test.Add("projection", projection);
-            test.Add("lightColor", new Vector3(1.0f, 0.0f, 0.0f));
-            testPlane.Uniforms = test;
-
+            planeUniforms["model"] = planeModel;
+            planeUniforms["view"] = camera.ViewMatrix;
+            planeUniforms["projection"] = projection;
+            planeUniforms["lightColor"] = new Vector3(1.0f, 0.0f, 1.0f);
+            testPlane.Uniforms = planeUniforms;
             testPlane.Draw();
 
-            shader.Use();
-
-            shader.SetUniform("material.diffuse", 0);
-            shader.SetUniform("material.specular", 1);
-            shader.SetUniform("material.shininess", 32f);
-
-            //lightuniforms
-
-            // Directional light
-            shader.SetUniform("dirLight.direction", new Vector3(-0.2f, -1.0f, -0.3f));
-            shader.SetUniform("dirLight.ambient", new Vector3(0.05f, 0.05f, 0.05f));
-            shader.SetUniform("dirLight.diffuse", new Vector3(0.4f, 0.4f, 0.4f));
-            shader.SetUniform("dirLight.specular", new Vector3(0.5f, 0.5f, 0.5f));
-
-            // Point lights
-            for (int i = 0; i < pointLightPositions.Length; i++)
-            {
-                shader.SetUniform($"pointLights[{i}].position", pointLightPositions[i]);
-                shader.SetUniform($"pointLights[{i}].ambient", new Vector3(0.05f, 0.05f, 0.05f));
-                shader.SetUniform($"pointLights[{i}].diffuse", new Vector3(0.8f, 0.8f, 0.8f));
-                shader.SetUniform($"pointLights[{i}].specular", new Vector3(1.0f, 1.0f, 1.0f));
-                shader.SetUniform($"pointLights[{i}].constant", 1.0f);
-                shader.SetUniform($"pointLights[{i}].linear", 0.09f);
-                shader.SetUniform($"pointLights[{i}].quadratic", 0.032f);
-            }
-
-            // Spot light
-            shader.SetUniform("spotLight.position", camera.Position);
-            shader.SetUniform("spotLight.direction", camera.CameraFront);
-            shader.SetUniform("spotLight.ambient", new Vector3(0.0f, 0.0f, 0.0f));
-            shader.SetUniform("spotLight.diffuse", new Vector3(1.0f, 1.0f, 1.0f));
-            shader.SetUniform("spotLight.specular", new Vector3(1.0f, 1.0f, 1.0f));
-            shader.SetUniform("spotLight.constant", 1.0f);
-            shader.SetUniform("spotLight.linear", 0.09f);
-            shader.SetUniform("spotLight.quadratic", 0.032f);
-            shader.SetUniform("spotLight.cutOff", (float)Math.Cos(MathHelper.DegreesToRadians(12.5f)));
-            shader.SetUniform("spotLight.outerCutOff", (float)Math.Cos(MathHelper.DegreesToRadians(17.5f)));
-
-            //lightuniforms
-
-            shader.SetUniform("viewPos", camera.Position);
-
-            shader.SetUniform("view", camera.ViewMatrix);
-            shader.SetUniform("projection", projection);
-            shader.SetUniform("model", Matrix4.Identity);
-
-            GL.BindVertexArray(VertexArrayObject);
+            containerUniforms["view"] = camera.ViewMatrix;
+            containerUniforms["spotLight.position"] = camera.Position;
+            containerUniforms["spotLight.direction"] = camera.CameraFront;
             for (int i = 0; i < cubePositions.Length; i++)
             {
-                var model = Matrix4.Identity;
-
                 float angle = 20.0f * i;
+
+                var model = Matrix4.Identity;
                 model *= Matrix4.CreateFromAxisAngle(new Vector3(1.0f, 0.3f, 0.5f), MathHelper.DegreesToRadians(angle));
                 model *= Matrix4.CreateTranslation(cubePositions[i]);
+                containerUniforms["model"] = model;
+                container.Uniforms = containerUniforms;
 
-                //model *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(angle));
-                //model *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(0.3 * angle));
-                //model *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(0.5 * angle));
-
-
-                shader.SetUniform("model", model);
-                GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+                container.Draw();
             }
 
-            lightCubeShader.Use();
-
-            lightCubeShader.SetUniform("view", camera.ViewMatrix);
-            lightCubeShader.SetUniform("projection", projection);
-
+            lightCubeUniforms["view"] = camera.ViewMatrix;
             for (int i = 0; i < pointLightPositions.Length; i++)
             {
                 var lightCubeModel = Matrix4.Identity;
                 lightCubeModel *= Matrix4.CreateScale(0.2f);
                 lightCubeModel *= Matrix4.CreateTranslation(pointLightPositions[i]);
-                lightCubeShader.SetUniform("model", lightCubeModel);
-                lightCubeShader.SetUniform("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
+                lightCubeUniforms["model"] = lightCubeModel;
+                lightCube.Uniforms = lightCubeUniforms;
 
-                GL.BindVertexArray(lightVao);
-                GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+                lightCube.Draw();
             }
 
             Context.SwapBuffers();
@@ -273,9 +194,6 @@ namespace WaterSim
 
         protected override void OnUnload(EventArgs e)
         {
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.DeleteBuffer(VertexBufferObject);
-
             shader.Dispose();
 
             base.OnUnload(e);

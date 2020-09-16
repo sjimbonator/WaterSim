@@ -7,7 +7,6 @@ using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using OpenTK.Platform.Windows;
 
 namespace WaterSim
 {
@@ -19,12 +18,13 @@ namespace WaterSim
         private int _id;
 
         public int Id { get => _id; private set => _id = value; }
-        public int TextureUnit { get => _textureUnit; private set => _textureUnit = value; }
+        public int Unit { get => _textureUnit; private set => _textureUnit = value; }
 
         public Texture(string path)
         {
             if (!File.Exists($"Content/{path}")) throw new FileNotFoundException($"File not found at 'Content/{path}'");
-            _textureUnit = _textureUnitCount;
+
+            _textureUnit = 33984 + _textureUnitCount; //The OpenTK TextureUnit enum starts with 33984. So TextureUnit.Texture0's int value is 33984, TextureUnit.Texture1's int value is 33985 etc.
             _textureUnitCount++;
 
             _id = GL.GenTexture();

@@ -32,16 +32,16 @@
     <None Update="Content\wall.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="shaders\cube\shader.frag">
+    <None Update="Content\shaders\cube\shader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="shaders\cube\shader.vert">
+    <None Update="Content\shaders\cube\shader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="shaders\light\shader.frag">
+    <None Update="Content\shaders\light\shader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="shaders\light\shader.vert">
+    <None Update="Content\shaders\light\shader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

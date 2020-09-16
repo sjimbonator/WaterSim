@@ -103,7 +103,6 @@ namespace WaterSim
             GL.DeleteProgram(Handle);
         }
 
-
         public void Dispose()
         {
             Dispose(true);

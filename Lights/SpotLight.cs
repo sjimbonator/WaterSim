@@ -25,11 +25,11 @@ namespace WaterSim.Lights
             _wrappedCamera = wrappedCamera;
         }
 
-        public override void SetUniforms(Shader shader, String namePrefix = "spotLight.")
+        public override void Apply(Shader shader, String namePrefix = "spotLight.")
         {
             if (namePrefix == "") namePrefix = "spotLight."; //https://stackoverflow.com/questions/8909811/c-sharp-optional-parameters-on-overridden-methods
 
-            base.SetUniforms(shader, namePrefix);
+            base.Apply(shader, namePrefix);
             if (_wrappedCamera != null)
             {
                 shader.SetUniform(namePrefix + "position", _wrappedCamera.Position);

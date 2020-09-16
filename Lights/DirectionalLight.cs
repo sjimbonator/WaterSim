@@ -24,11 +24,11 @@ namespace WaterSim
             _specularColor = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
-        public override void SetUniforms(Shader shader, String namePrefix = "dirLight.")
+        public override void Apply(Shader shader, String namePrefix = "dirLight.")
         {
             if (namePrefix == "") namePrefix = "dirLight."; //https://stackoverflow.com/questions/8909811/c-sharp-optional-parameters-on-overridden-methods
 
-            base.SetUniforms(shader, namePrefix);
+            base.Apply(shader, namePrefix);
             shader.SetUniform(namePrefix + "direction", _direction);
         }
     }

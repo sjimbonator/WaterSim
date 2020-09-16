@@ -2,48 +2,37 @@
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using System.Text;
+using WaterSim.Materials;
+using OpenTK;
 
 namespace WaterSim
 {
     abstract class Shape
     {
-        protected Shader _shader;
-        protected Dictionary<String, dynamic> _uniforms;
+        protected Material _material;
 
         protected float[] _vertices;
         protected int[] _indices;
 
         protected int VAO, VBO, EBO;
         protected bool _useEBO;
+        public Matrix4 ModelMatrix { get => _material.ModelMatrix; set => _material.ModelMatrix = value; }
 
-        public Dictionary<String, dynamic> Uniforms { get => _uniforms; set => _uniforms = value; }
-        public Shader Shader { get => _shader; set => _shader = value; }
-
-        public void Draw(Light[] lights = null)
+        public Shape(Material material)
         {
-            _shader.Use();
+            _material = material;
+        }
 
-            //set uniforms
-            foreach (KeyValuePair<string, dynamic> entry in _uniforms)
-            {
-                _shader.SetUniform(entry.Key, entry.Value);
-            }
+        public Shape(Material material, Matrix4 modelMatrix)
+        {
+            _material = material;
+            ModelMatrix = modelMatrix;
+        }
 
-            if (lights != null)
-            {
-                var pointLightCount = 0;
-                foreach (Light light in lights)
-                {
-                    if (light.GetType() == typeof(PointLight))
-                    {
-                        light.SetUniforms(_shader, $"pointLights[{pointLightCount}].");
-                        pointLightCount++;
-                        continue;
-                    }
-                    light.SetUniforms(_shader);
-
-                }
-            }
+        public void Draw()
+        {
+            //apply material
+            _material.Apply();
 
             // draw mesh
             GL.BindVertexArray(VAO);

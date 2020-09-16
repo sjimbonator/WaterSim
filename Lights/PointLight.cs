@@ -32,11 +32,11 @@ namespace WaterSim
             _position = position;
         }
 
-        public override void SetUniforms(Shader shader, String namePrefix = "pointLights[0].")
+        public override void Apply(Shader shader, String namePrefix = "pointLights[0].")
         {
             if (namePrefix == "") namePrefix = "pointLights[0]."; //https://stackoverflow.com/questions/8909811/c-sharp-optional-parameters-on-overridden-methods
 
-            base.SetUniforms(shader, namePrefix);
+            base.Apply(shader, namePrefix);
             shader.SetUniform(namePrefix + "position", _position);
 
             shader.SetUniform(namePrefix + "constant", _constant);

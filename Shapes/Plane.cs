@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using WaterSim.Materials;
 
 namespace WaterSim
 {
     class Plane : Shape
     {
-        public Plane(Shader shader, Dictionary<String, dynamic> uniforms, float size = 200, int VertexCount = 32)
+        public Plane(Material material, float size = 200, int VertexCount = 32) : base(material)
         {
-            _shader = shader;
-            _uniforms = uniforms;
+            GeneratePlane(size, VertexCount);
+            Setup();
+        }
 
+        public Plane(Material material, Matrix4 modelMatrix, float size = 200, int VertexCount = 32) : base(material, modelMatrix)
+        {
             GeneratePlane(size, VertexCount);
             Setup();
         }

@@ -15,7 +15,7 @@ namespace WaterSim
         public Vector3 DiffuseColor { get => _diffuseColor; set => _diffuseColor = value; }
         public Vector3 SpecularColor { get => _specularColor; set => _specularColor = value; }
 
-        public virtual void SetUniforms(Shader shader, String namePrefix = "")
+        public virtual void Apply(Shader shader, String namePrefix = "")
         {
             shader.SetUniform(namePrefix + "ambient", _ambientColor);
             shader.SetUniform(namePrefix + "diffuse", _diffuseColor);

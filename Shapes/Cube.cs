@@ -1,16 +1,22 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using WaterSim.Materials;
 
 namespace WaterSim
 {
     class Cube : Shape
     {
 
-        public Cube(Shader shader, Dictionary<String, dynamic> uniforms)
+        public Cube(Material material) : base(material)
         {
-            _shader = shader;
-            _uniforms = uniforms;
+            GenerateCube();
+            Setup();
+        }
+
+        public Cube(Material material, Matrix4 modelMatrix) : base(material, modelMatrix)
+        {
 
             GenerateCube();
             Setup();

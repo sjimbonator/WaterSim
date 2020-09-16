@@ -20,9 +20,9 @@ C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\runtimes\win\li
 C:\Users\sjimm\Documents\GitHub\WaterSim\obj\Debug\netcoreapp3.1\WaterSim.csproj.CoreCompileInputs.cache
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\wall.jpg
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\awesomeface.png
-C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shaders\cube\shader.frag
-C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shaders\cube\shader.vert
-C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shaders\light\shader.frag
-C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\shaders\light\shader.vert
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\container2.png
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\container2_specular.png
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\cube\shader.frag
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\cube\shader.vert
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\light\shader.frag
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\light\shader.vert

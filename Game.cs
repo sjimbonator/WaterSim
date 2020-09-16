@@ -151,7 +151,7 @@ namespace WaterSim
                 containerUniforms["model"] = model;
                 container.Uniforms = containerUniforms;
 
-                container.Draw();
+                container.Draw(lights);
             }
 
             lightCubeUniforms["view"] = camera.ViewMatrix;

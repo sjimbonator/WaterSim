@@ -26,6 +26,7 @@ namespace WaterSim
 
         public override void SetUniforms(Shader shader, String namePrefix = "dirLight.")
         {
+            namePrefix = "dirLight.";
             base.SetUniforms(shader, namePrefix);
             shader.SetUniform(namePrefix + "direction", _direction);
         }

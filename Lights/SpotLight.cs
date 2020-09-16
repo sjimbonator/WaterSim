@@ -27,6 +27,8 @@ namespace WaterSim.Lights
 
         public override void SetUniforms(Shader shader, String namePrefix = "spotLight.")
         {
+            namePrefix = "spotLight.";
+
             base.SetUniforms(shader, namePrefix);
             if (_wrappedCamera != null)
             {

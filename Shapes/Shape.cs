@@ -34,13 +34,13 @@ namespace WaterSim
                 var pointLightCount = 0;
                 foreach (Light light in lights)
                 {
-                    if (light is PointLight)
+                    light.SetUniforms(_shader);
+                    if (light.GetType() == typeof(PointLight))
                     {
                         light.SetUniforms(_shader, $"pointLights[{pointLightCount}].");
                         pointLightCount++;
                         continue;
                     }
-                    else light.SetUniforms(_shader);
 
                 }
             }

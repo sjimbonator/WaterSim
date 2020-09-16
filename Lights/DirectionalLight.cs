@@ -26,7 +26,8 @@ namespace WaterSim
 
         public override void SetUniforms(Shader shader, String namePrefix = "dirLight.")
         {
-            namePrefix = "dirLight.";
+            if (namePrefix == "") namePrefix = "dirLight."; //https://stackoverflow.com/questions/8909811/c-sharp-optional-parameters-on-overridden-methods
+
             base.SetUniforms(shader, namePrefix);
             shader.SetUniform(namePrefix + "direction", _direction);
         }

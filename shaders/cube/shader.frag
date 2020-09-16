@@ -5,7 +5,7 @@ struct Material {
     float shininess;
 }; 
 
-struct DirLight {
+struct DirectionalLight {
     vec3 direction;
   
     vec3 ambient;
@@ -26,8 +26,8 @@ struct PointLight {
 };  
 
 struct SpotLight{
-    vec3  position;
-    vec3  direction;
+    vec3 position;
+    vec3 direction;
     float cutOff;
     float outerCutOff;
 
@@ -41,21 +41,21 @@ struct SpotLight{
 };
 uniform Material material;
 
-uniform DirLight dirLight;
+uniform DirectionalLight dirLight;
 #define NR_POINT_LIGHTS 4  
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform SpotLight spotLight;
+
+uniform vec3 viewPos;
 
 in vec3 Normal;
 in vec3 FragPos;
 in vec2 TexCoords;
 
-uniform vec3 viewPos;
-
 out vec4 FragColor;
 
 // prototypes
-vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);  
+vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir);  
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);  
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
@@ -76,7 +76,7 @@ void main()
     FragColor = vec4(result, 1.0);
 }
 
-vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
+vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 {
     vec3 lightDir = normalize(-light.direction);
     // diffuse shading
@@ -115,7 +115,6 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
-
     //diffuse shading
     vec3 lightDir = normalize(light.position - FragPos);
     float diff = max(dot(normal, lightDir), 0.0);

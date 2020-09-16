@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using WaterSim.Lights;
 
 namespace WaterSim
 {
     class Game : GameWindow
     {
-
         private readonly Vector3[] cubePositions =
         {
             new Vector3(0.0f, 0.0f, 0.0f),
@@ -27,12 +27,14 @@ namespace WaterSim
         };
 
         private readonly Vector3[] pointLightPositions =
-{
+        {
             new Vector3(0.7f, 0.2f, 2.0f),
             new Vector3(2.3f, -3.3f, -4.0f),
             new Vector3(-4.0f, 2.0f, -12.0f),
             new Vector3(0.0f, 0.0f, -3.0f)
         };
+
+        private Light[] lights;
 
         private int DiffuseMap;
         private int SpecularMap;
@@ -89,37 +91,20 @@ namespace WaterSim
             container = new Cube(shader, new Dictionary<String, dynamic>());
             lightCube = new Cube(lightCubeShader, new Dictionary<String, dynamic>());
 
+            lights = new Light[] {
+                new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.3f)),
+                new PointLight( pointLightPositions[0]),
+                new PointLight( pointLightPositions[1]),
+                new PointLight( pointLightPositions[2]),
+                new PointLight( pointLightPositions[3]),
+                new SpotLight(camera)
+            };
+
             containerUniforms = new Dictionary<string, dynamic>();
             containerUniforms["material.diffuse"] = 0;
             containerUniforms["material.specular"] = 1;
             containerUniforms["material.shininess"] = 32f;
 
-            containerUniforms["dirLight.direction"] = new Vector3(-0.2f, -1.0f, -0.3f);
-            containerUniforms["dirLight.ambient"] = new Vector3(0.05f, 0.05f, 0.05f);
-            containerUniforms["dirLight.diffuse"] = new Vector3(0.4f, 0.4f, 0.4f);
-            containerUniforms["dirLight.specular"] = new Vector3(0.5f, 0.5f, 0.5f);
-
-            for (int i = 0; i < pointLightPositions.Length; i++)
-            {
-                containerUniforms[$"pointLights[{i}].position"] = pointLightPositions[i];
-                containerUniforms[$"pointLights[{i}].ambient"] = new Vector3(0.05f, 0.05f, 0.05f);
-                containerUniforms[$"pointLights[{i}].diffuse"] = new Vector3(0.8f, 0.8f, 0.8f);
-                containerUniforms[$"pointLights[{i}].specular"] = new Vector3(1.0f, 1.0f, 1.0f);
-                containerUniforms[$"pointLights[{i}].constant"] = 1.0f;
-                containerUniforms[$"pointLights[{i}].linear"] = 0.09f;
-                containerUniforms[$"pointLights[{i}].quadratic"] = 0.032f;
-            }
-
-            containerUniforms["spotLight.position"] = camera.Position;
-            containerUniforms["spotLight.direction"] = camera.CameraFront;
-            containerUniforms["spotLight.ambient"] = new Vector3(0.0f, 0.0f, 0.0f);
-            containerUniforms["spotLight.diffuse"] = new Vector3(1.0f, 1.0f, 1.0f);
-            containerUniforms["spotLight.specular"] = new Vector3(1.0f, 1.0f, 1.0f);
-            containerUniforms["spotLight.constant"] = 1.0f;
-            containerUniforms["spotLight.linear"] = 0.09f;
-            containerUniforms["spotLight.quadratic"] = 0.032f;
-            containerUniforms["spotLight.cutOff"] = (float)Math.Cos(MathHelper.DegreesToRadians(12.5f));
-            containerUniforms["spotLight.outerCutOff"] = (float)Math.Cos(MathHelper.DegreesToRadians(17.5f));
             containerUniforms["viewPos"] = camera.Position;
             containerUniforms["view"] = camera.ViewMatrix;
             containerUniforms["projection"] = projection;
@@ -199,5 +184,4 @@ namespace WaterSim
             base.OnUnload(e);
         }
     }
-
 }

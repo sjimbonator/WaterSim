@@ -19,13 +19,32 @@ namespace WaterSim
         public Dictionary<String, dynamic> Uniforms { get => _uniforms; set => _uniforms = value; }
         public Shader Shader { get => _shader; set => _shader = value; }
 
-        public void Draw()
+        public void Draw(Light[] lights = null)
         {
             _shader.Use();
+
+            //set uniforms
             foreach (KeyValuePair<string, dynamic> entry in _uniforms)
             {
                 _shader.SetUniform(entry.Key, entry.Value);
             }
+
+            if (lights != null)
+            {
+                var pointLightCount = 0;
+                foreach (Light light in lights)
+                {
+                    if (light is PointLight)
+                    {
+                        light.SetUniforms(_shader, $"pointLights[{pointLightCount}].");
+                        pointLightCount++;
+                        continue;
+                    }
+                    else light.SetUniforms(_shader);
+
+                }
+            }
+
             // draw mesh
             GL.BindVertexArray(VAO);
             if (_useEBO) GL.DrawElements(BeginMode.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);

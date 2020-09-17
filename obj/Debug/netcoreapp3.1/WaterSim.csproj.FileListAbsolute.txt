@@ -26,3 +26,5 @@ C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\cube\shader.vert
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\light\shader.frag
 C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\light\shader.vert
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\terrain\terrainShader.frag
+C:\Users\sjimm\Documents\GitHub\WaterSim\bin\Debug\netcoreapp3.1\Content\shaders\terrain\terrainShader.vert

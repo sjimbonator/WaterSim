@@ -26,8 +26,8 @@ namespace WaterSim.Materials
             ApplyMatrices();
             ApplyLights();
 
-            _shader.SetUniform("material.diffuse", 0);
-            _shader.SetUniform("material.specular", 1);
+            _shader.SetUniform("material.diffuse", DiffuseMap.Unit);
+            _shader.SetUniform("material.specular", SpecularMap.Unit);
             _shader.SetUniform("material.shininess", Shininess);
         }
     }

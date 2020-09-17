@@ -29,6 +29,9 @@ namespace WaterSim
         public static Light[] Lights { get; private set; }
         public static void AddShader(Shader shader) => shaders.Add(shader);
 
+        public static float Noisiness { get; private set; }
+        public static float HeightMod { get; private set; }
+
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title) { }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -45,19 +48,29 @@ namespace WaterSim
             CameraPosition = camera.Position;
             CameraDirection = camera.CameraFront;
 
+            if (kInput.IsKeyDown(Key.Right)) Noisiness += 0.001f;
+            if (kInput.IsKeyDown(Key.Left)) Noisiness -= 0.001f;
+            if (kInput.IsKeyDown(Key.Up)) HeightMod += 0.01f;
+            if (kInput.IsKeyDown(Key.Down)) HeightMod -= 0.01f;
+
+            if (kInput.IsKeyDown(Key.Space)) Console.WriteLine($"HeightMod = {HeightMod} Noisiness = {Noisiness}");
+
             base.OnUpdateFrame(e);
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            GL.ClearColor(0.6f, 0.95f, 1f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
+
+            Noisiness = 0.1f;
+            HeightMod = 1f;
 
             shapes = new List<Shape>();
             shaders = new List<Shader>();
 
-            camera = new Camera(new Vector3(10, 10, 10), 0.1f, 5f);
-            Projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Width / (float)Height, 0.1f, 100.0f);
+            camera = new Camera(new Vector3(10, 10, 10), 0.1f, 15f);
+            Projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Width / (float)Height, 0.1f, 1000.0f);
 
             BuildWorldObjects();
 
@@ -66,9 +79,10 @@ namespace WaterSim
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+            GL.ClearColor(184.0f / 255.0f, 213.0f / 255.0f, 238.0f / 255.0f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
+            if (Keyboard.GetState().IsKeyDown(Key.P)) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
+            else { GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); }
 
             foreach (Shape shape in shapes) shape.Draw();
 
@@ -130,11 +144,11 @@ namespace WaterSim
                 shapes.Add(new Cube(new ColoredMaterial(new Vector3(1.0f, 1.0f, 1.0f)), model));
             }
 
-            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-100, -10, -100));
-            shapes.Add(new Plane(new ColoredMaterial(new Vector3(1.0f, 0.0f, 1.0f)), planeModel));
+            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-100f, -10f, -100f));
+            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 200, 128));
 
             Lights = new Light[] {
-                new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.3f)),
+                new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.4f)),
                 new PointLight( pointLightPositions[0]),
                 new PointLight( pointLightPositions[1]),
                 new PointLight( pointLightPositions[2]),

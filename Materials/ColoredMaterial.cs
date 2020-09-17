@@ -19,7 +19,6 @@ namespace WaterSim.Materials
             _shader.Use();
 
             ApplyMatrices();
-            ApplyLights();
 
             _shader.SetUniform("color", Color);
         }

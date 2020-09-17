@@ -39,7 +39,9 @@ struct SpotLight{
     float linear;
     float quadratic;
 };
-uniform Material material;
+#define NR_MATERIALS 5  
+uniform Material materials[NR_MATERIALS];
+Material material;
 
 uniform DirectionalLight dirLight;
 #define NR_POINT_LIGHTS 4  
@@ -51,6 +53,7 @@ uniform vec3 viewPos;
 in vec3 Normal;
 in vec3 FragPos;
 in vec2 TexCoords;
+in float modifiedY;
 
 out vec4 FragColor;
 
@@ -58,10 +61,12 @@ out vec4 FragColor;
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir);  
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);  
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
+Material MixMaterials(Material[NR_MATERIALS] materials);
 
 void main()
 {
     // properties
+    material = MixMaterials(materials);
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
 
@@ -74,6 +79,30 @@ void main()
     result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
     
     FragColor = vec4(result, 1.0);
+}
+
+Material MixMaterials(Material[NR_MATERIALS] materials)
+{
+    float height = modifiedY;
+    Material x = materials[0];
+    Material y = materials[0];
+    float a = 0;
+    for(int i = 0; i <  NR_MATERIALS; i++)
+    {
+        if(height > i)
+        {
+            x = y;
+            y = materials[i];
+            a = height -i;
+        }
+    }
+
+    Material returnMaterial;
+    returnMaterial.ambient = mix(x.ambient, y.ambient, a);
+    returnMaterial.diffuse = mix(x.diffuse, y.diffuse, a);
+    returnMaterial.specular = mix(x.specular, y.ambient, a);
+    returnMaterial.shininess = mix(x.shininess, y.shininess, a);
+    return returnMaterial;
 }
 
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)

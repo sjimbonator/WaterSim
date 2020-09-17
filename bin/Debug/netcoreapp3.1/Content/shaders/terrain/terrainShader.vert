@@ -12,6 +12,7 @@ uniform float heightMod;
 
 out vec3 Normal;
 out vec3 FragPos;
+out float modifiedY;
 
 vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
 
@@ -44,7 +45,8 @@ float snoise(vec2 v){
 
 void main()
 {
-    gl_Position = vec4(aPosition.x, snoise(vec2(aPosition.x * noisiness ,aPosition.z * noisiness)) * heightMod, aPosition.z, 1.0) * model * view * projection;
+    modifiedY = snoise(vec2(aPosition.x * noisiness ,aPosition.z * noisiness)) * heightMod;
+    gl_Position = vec4(aPosition.x, modifiedY, aPosition.z, 1.0) * model * view * projection;
     Normal = aNormal * mat3(transpose(inverse(model)));  
     FragPos = vec3(vec4(aPosition, 1.0)* model);
 }

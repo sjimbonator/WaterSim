@@ -45,7 +45,10 @@ float snoise(vec2 v){
 
 void main()
 {
-    modifiedY = snoise(vec2(aPosition.x * noisiness ,aPosition.z * noisiness)) * heightMod;
+    float y = snoise(vec2(aPosition.x, aPosition.z) * vec2(noisiness, noisiness));
+    if(y < 0) y *= 0.5;
+    else y*= heightMod;
+    modifiedY = y;
     gl_Position = vec4(aPosition.x, modifiedY, aPosition.z, 1.0) * model * view * projection;
     Normal = aNormal * mat3(transpose(inverse(model)));  
     FragPos = vec3(vec4(aPosition, 1.0)* model);

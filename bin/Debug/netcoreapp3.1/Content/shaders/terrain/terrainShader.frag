@@ -4,6 +4,8 @@ struct Material {
     vec3 diffuse;
     vec3 specular;
     float shininess;
+
+    float lerpTreshold;
 }; 
 struct DirectionalLight {
     vec3 direction;
@@ -39,7 +41,7 @@ struct SpotLight{
     float linear;
     float quadratic;
 };
-#define NR_MATERIALS 5  
+#define NR_MATERIALS 6  
 uniform Material materials[NR_MATERIALS];
 Material material;
 
@@ -78,32 +80,34 @@ void main()
     // phase 3: Spot light
     result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
     
-    FragColor = vec4(result, 1.0);
+    FragColor = vec4(material.diffuse, 1.0);
 }
+
 
 Material MixMaterials(Material[NR_MATERIALS] materials)
 {
-    float height = modifiedY;
+    float height = clamp((modifiedY) / 10, 0, 1);
     Material x = materials[0];
-    Material y = materials[0];
     float a = 0;
+    int test = 0;
     for(int i = 0; i <  NR_MATERIALS; i++)
     {
-        if(height > i)
-        {
-            x = y;
-            y = materials[i];
-            a = height -i;
-        }
-    }
+        Material y = materials[i];
+        float upperTreshold;
+        if(i == NR_MATERIALS) upperTreshold = 1;
+        else upperTreshold = materials[i+1].lerpTreshold;
+        float range = upperTreshold - x.lerpTreshold;
 
-    Material returnMaterial;
-    returnMaterial.ambient = mix(x.ambient, y.ambient, a);
-    returnMaterial.diffuse = mix(x.diffuse, y.diffuse, a);
-    returnMaterial.specular = mix(x.specular, y.ambient, a);
-    returnMaterial.shininess = mix(x.shininess, y.shininess, a);
-    return returnMaterial;
+        a =  1 * ((height - x.lerpTreshold) / range);
+
+        x.ambient = mix(x.ambient, y.ambient, smoothstep(x.lerpTreshold, y.lerpTreshold, height));
+        x.diffuse = mix(x.diffuse, y.diffuse, smoothstep(x.lerpTreshold, y.lerpTreshold, height));
+        x.specular = mix(x.specular, y.ambient, smoothstep(x.lerpTreshold, y.lerpTreshold, height));
+        x.shininess = mix(x.shininess, y.shininess, smoothstep(x.lerpTreshold, y.lerpTreshold, height));
+    }
+    return x;
 }
+
 
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 {

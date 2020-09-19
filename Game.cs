@@ -145,7 +145,7 @@ namespace WaterSim
             }
 
             var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-100f, -10f, -100f));
-            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 200, 128));
+            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 200, 1024));
 
             Lights = new Light[] {
                 new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.4f)),

@@ -47,7 +47,6 @@ namespace WaterSim
             GL.CompileShader(FragmentShader);
 
             string infoLogFrag = GL.GetShaderInfoLog(FragmentShader);
-
             if (infoLogFrag != System.String.Empty)
                 System.Console.WriteLine(infoLogFrag);
 
@@ -62,6 +61,78 @@ namespace WaterSim
             GL.DetachShader(Handle, FragmentShader);
             GL.DeleteShader(FragmentShader);
             GL.DeleteShader(VertexShader);
+        }
+
+        public Shader(string vertexPath, string fragmentPath, string geometryPath)
+        {
+            int VertexShader;
+            int GeometryShader;
+            int FragmentShader;
+
+            string VertexShaderSource;
+
+            using (StreamReader reader = new StreamReader(vertexPath, Encoding.UTF8))
+            {
+                VertexShaderSource = reader.ReadToEnd();
+            }
+
+            string GeometryShaderSource;
+
+            using (StreamReader reader = new StreamReader(geometryPath, Encoding.UTF8))
+            {
+                GeometryShaderSource = reader.ReadToEnd();
+            }
+
+            string FragmentShaderSource;
+
+            using (StreamReader reader = new StreamReader(fragmentPath, Encoding.UTF8))
+            {
+                FragmentShaderSource = reader.ReadToEnd();
+            }
+
+            VertexShader = GL.CreateShader(ShaderType.VertexShader);
+            GL.ShaderSource(VertexShader, VertexShaderSource);
+
+            GL.CompileShader(VertexShader);
+
+            string infoLogVert = GL.GetShaderInfoLog(VertexShader);
+            if (infoLogVert != System.String.Empty)
+                System.Console.WriteLine(infoLogVert);
+
+            GeometryShader = GL.CreateShader(ShaderType.GeometryShader);
+            GL.ShaderSource(GeometryShader, GeometryShaderSource);
+
+            GL.CompileShader(GeometryShader);
+
+            string infoLogGeom = GL.GetShaderInfoLog(GeometryShader);
+            if (infoLogGeom != System.String.Empty)
+                System.Console.WriteLine(infoLogGeom);
+
+            FragmentShader = GL.CreateShader(ShaderType.FragmentShader);
+            GL.ShaderSource(FragmentShader, FragmentShaderSource);
+
+            GL.CompileShader(FragmentShader);
+
+            string infoLogFrag = GL.GetShaderInfoLog(FragmentShader);
+            if (infoLogFrag != System.String.Empty)
+                System.Console.WriteLine(infoLogFrag);
+
+            Handle = GL.CreateProgram();
+
+            GL.AttachShader(Handle, VertexShader);
+            GL.AttachShader(Handle, GeometryShader);
+            GL.AttachShader(Handle, FragmentShader);
+
+            GL.LinkProgram(Handle);
+
+            GL.DetachShader(Handle, VertexShader);
+            GL.DetachShader(Handle, GeometryShader);
+            GL.DetachShader(Handle, FragmentShader);
+
+            GL.DeleteShader(FragmentShader);
+            GL.DeleteShader(VertexShader);
+            GL.DeleteShader(GeometryShader);
+            //TODO: cleanup duplicated code
         }
 
         public void Use()

@@ -106,6 +106,7 @@ namespace WaterSim
 
         private void BuildWorldObjects()
         {
+            // uncomment for the learnopengl.com tutorial objects
             Vector3[] cubePositions =
             {
                 new Vector3(0.0f, 0.0f, 0.0f),
@@ -146,7 +147,7 @@ namespace WaterSim
             }
 
             var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-200f, -10f, -200f));
-            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 400, 2048));
+            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 400, 512));
 
             Lights = new Light[] {
                 new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.4f)),

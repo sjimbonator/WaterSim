@@ -4,14 +4,13 @@ layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoords;
 
 uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
 
 uniform float noisiness;
 uniform float heightMod;
 
 out vec3 Normal;
 out vec3 FragPos;
+out vec2 TexCoords;
 out float modifiedY;
 
 vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
@@ -51,7 +50,8 @@ void main()
     y*= heightMod;
     if(y < 0) y*=0.2;
     modifiedY = y;
-    gl_Position = vec4(aPosition.x, modifiedY, aPosition.z, 1.0) * model * view * projection;
+    gl_Position = vec4(aPosition.x, modifiedY, aPosition.z, 1.0);
     Normal = aNormal * mat3(transpose(inverse(model)));  
     FragPos = vec3(vec4(aPosition, 1.0)* model);
+    TexCoords = aTexCoords;
 }

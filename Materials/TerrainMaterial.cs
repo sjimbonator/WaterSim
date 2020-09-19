@@ -9,7 +9,7 @@ namespace WaterSim.Materials
     {
         private Dictionary<String, dynamic> terrainMaterials;
 
-        public TerrainMaterial() : base(new Shader("Content/shaders/terrain/terrainShader.vert", "Content/shaders/terrain/terrainShader.frag"))
+        public TerrainMaterial() : base(new Shader("Content/shaders/terrain/terrainShader.vert", "Content/shaders/terrain/terrainShader.frag", "Content/shaders/terrain/terrainShader.geom"))
         {
             terrainMaterials = new Dictionary<String, dynamic>();
 
@@ -29,13 +29,13 @@ namespace WaterSim.Materials
             terrainMaterials["materials[2].diffuse"] = new Vector3(139 / 255f, 87 / 255f, 42 / 255f);
             terrainMaterials["materials[2].specular"] = new Vector3(139 / 255f, 87 / 255f, 42 / 255f) * 0.8f;
             terrainMaterials["materials[2].shininess"] = 0.078125f * 128f;
-            terrainMaterials["materials[2].lerpTreshold"] = 1.01f;
+            terrainMaterials["materials[2].lerpTreshold"] = 1.05f;
 
             terrainMaterials["materials[3].ambient"] = new Vector3(65 / 255f, 117 / 255f, 5 / 255f) * 0.05f;
             terrainMaterials["materials[3].diffuse"] = new Vector3(65 / 255f, 117 / 255f, 5 / 255f);
             terrainMaterials["materials[3].specular"] = new Vector3(65 / 255f, 117 / 255f, 5 / 255f) * 0.8f;
             terrainMaterials["materials[3].shininess"] = 0.078125f * 128f;
-            terrainMaterials["materials[3].lerpTreshold"] = 1.13f;
+            terrainMaterials["materials[3].lerpTreshold"] = 1.23f;
 
             terrainMaterials["materials[4].ambient"] = new Vector3(50 / 255f, 50 / 255f, 50 / 255f) * 0.05f;
             terrainMaterials["materials[4].diffuse"] = new Vector3(50 / 255f, 50 / 255f, 50 / 255f);

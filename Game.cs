@@ -60,7 +60,7 @@ namespace WaterSim
 
         protected override void OnLoad(EventArgs e)
         {
-            GL.ClearColor(0.6f, 0.95f, 1f, 1.0f);
+            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
 
             Noisiness = 0.1f;
@@ -79,7 +79,8 @@ namespace WaterSim
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            GL.ClearColor(184.0f / 255.0f, 213.0f / 255.0f, 238.0f / 255.0f, 1.0f);
+            GL.ClearColor(184.0f / 255.0f, 213.0f / 255.0f, 238.0f / 255.0f, 1.0f);//day
+            //GL.ClearColor(12f / 255.0f, 33f / 255.0f, 46f / 255.0f, 1.0f); //night
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             if (Keyboard.GetState().IsKeyDown(Key.P)) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
             else { GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); }
@@ -144,8 +145,8 @@ namespace WaterSim
                 shapes.Add(new Cube(new ColoredMaterial(new Vector3(1.0f, 1.0f, 1.0f)), model));
             }
 
-            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-100f, -10f, -100f));
-            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 200, 1024));
+            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-200f, -10f, -200f));
+            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 400, 2048));
 
             Lights = new Light[] {
                 new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.4f)),

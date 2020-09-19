@@ -19,9 +19,15 @@ namespace WaterSim
         {
             _direction = direction;
 
-            _ambientColor = new Vector3(184.0f / 2550.0f, 213.0f / 2550.0f, 238.0f / 2550.0f);
-            _diffuseColor = new Vector3(184.0f / 255.0f, 213.0f / 255.0f, 238.0f / 255.0f);
+            //day
+            _ambientColor = new Vector3(184.0f / 1020.0f, 213.0f / 1020.0f, 238.0f / 1020.0f);
+            _diffuseColor = new Vector3(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
             _specularColor = new Vector3(230.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+
+            //night
+            //_ambientColor = new Vector3(0.05f, 0.05f, 0.05f);
+            //_diffuseColor = new Vector3(0.4f, 0.4f, 0.4f);
+            //_specularColor = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
         public override void Apply(Shader shader, String namePrefix = "dirLight.")

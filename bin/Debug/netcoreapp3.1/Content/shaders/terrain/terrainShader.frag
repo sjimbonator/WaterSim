@@ -80,25 +80,19 @@ void main()
     // phase 3: Spot light
     result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
     
-    FragColor = vec4(material.diffuse, 1.0);
+    FragColor = vec4(result, 1.0);
 }
 
 
 Material MixMaterials(Material[NR_MATERIALS] materials)
 {
-    float height = clamp((modifiedY) / 10, 0, 1);
+    float height = clamp((modifiedY) / 10, -1, 1);
+    height+=1;
     Material x = materials[0];
     float a = 0;
-    int test = 0;
     for(int i = 0; i <  NR_MATERIALS; i++)
     {
         Material y = materials[i];
-        float upperTreshold;
-        if(i == NR_MATERIALS) upperTreshold = 1;
-        else upperTreshold = materials[i+1].lerpTreshold;
-        float range = upperTreshold - x.lerpTreshold;
-
-        a =  1 * ((height - x.lerpTreshold) / range);
 
         x.ambient = mix(x.ambient, y.ambient, smoothstep(x.lerpTreshold, y.lerpTreshold, height));
         x.diffuse = mix(x.diffuse, y.diffuse, smoothstep(x.lerpTreshold, y.lerpTreshold, height));

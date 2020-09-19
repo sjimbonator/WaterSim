@@ -46,8 +46,10 @@ float snoise(vec2 v){
 void main()
 {
     float y = snoise(vec2(aPosition.x, aPosition.z) * vec2(noisiness, noisiness));
-    if(y < 0) y *= 0.5;
-    else y*= heightMod;
+    //if(y < 0) y *= 0.5;
+    //else y*= heightMod;
+    y*= heightMod;
+    if(y < 0) y*=0.2;
     modifiedY = y;
     gl_Position = vec4(aPosition.x, modifiedY, aPosition.z, 1.0) * model * view * projection;
     Normal = aNormal * mat3(transpose(inverse(model)));  

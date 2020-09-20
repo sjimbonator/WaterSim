@@ -14,8 +14,10 @@ in float modifiedY[];
 
 out vec3 geomNormal;
 out vec3 geomFragPos;
+out vec3 actualFragPos;
 out vec2 geomTexCoords;
 out float geomModifiedY;
+out float geomDistance;
 
 vec3 calcAvgNormal()
 {
@@ -54,6 +56,8 @@ void main()
 
 		//geomModifiedY= modifiedY[i]; // Per pixel material
 		geomModifiedY= calcAvgModifiedY(); // Per vertex material
+
+		geomDistance = length(gl_Position.xyz);
 
 		EmitVertex();
 	}

@@ -56,6 +56,7 @@ namespace WaterSim.Materials
 
             _shader.SetUniform("viewPos", Game.CameraPosition); //TODO: find out where to best put this
 
+            ApplySkyColor();
             ApplyMatrices();
             ApplyLights();
             ApplyMaterialValues();

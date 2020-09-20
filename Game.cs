@@ -26,6 +26,7 @@ namespace WaterSim
         public static Matrix4 View { get; private set; }
         public static Vector3 CameraPosition { get; private set; }
         public static Vector3 CameraDirection { get; private set; }
+        public static Vector4 SkyColor { get; private set; }
         public static Light[] Lights { get; private set; }
         public static void AddShader(Shader shader) => shaders.Add(shader);
 
@@ -63,13 +64,13 @@ namespace WaterSim
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
 
-            Noisiness = 0.1f;
-            HeightMod = 1f;
+            Noisiness = 0.04f;
+            HeightMod = 3f;
 
             shapes = new List<Shape>();
             shaders = new List<Shader>();
 
-            camera = new Camera(new Vector3(10, 10, 10), 0.1f, 15f);
+            camera = new Camera(new Vector3(10, 10, 10), 0.1f, 150f);
             Projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Width / (float)Height, 0.1f, 1000.0f);
 
             BuildWorldObjects();
@@ -79,8 +80,8 @@ namespace WaterSim
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            GL.ClearColor(184.0f / 255.0f, 213.0f / 255.0f, 238.0f / 255.0f, 1.0f);//day
-            //GL.ClearColor(12f / 255.0f, 33f / 255.0f, 46f / 255.0f, 1.0f); //night
+            SkyColor = new Vector4(184.0f / 255.0f, 213.0f / 255.0f, 238.0f / 255.0f, 1.0f);
+            GL.ClearColor(SkyColor.X, SkyColor.Y, SkyColor.Z, SkyColor.W);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             if (Keyboard.GetState().IsKeyDown(Key.P)) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
             else { GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); }
@@ -146,8 +147,8 @@ namespace WaterSim
                 shapes.Add(new Cube(new ColoredMaterial(new Vector3(1.0f, 1.0f, 1.0f)), model));
             }
 
-            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-200f, -10f, -200f));
-            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 400, 512));
+            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-800f, -70f, -800f));
+            shapes.Add(new Plane(new TerrainMaterial(), planeModel, 1600, 512));
 
             Lights = new Light[] {
                 new DirectionalLight(new Vector3(-0.2f, -1.0f, -0.4f)),

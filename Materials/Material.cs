@@ -41,5 +41,9 @@ namespace WaterSim.Materials
             _shader.SetUniform("projection", Game.Projection);
         }
 
+        protected void ApplySkyColor()
+        {
+            _shader.SetUniform("skyColor", Game.SkyColor);
+        }
     }
 }

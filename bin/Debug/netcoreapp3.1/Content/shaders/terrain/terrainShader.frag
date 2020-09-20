@@ -52,6 +52,12 @@ uniform SpotLight spotLight;
 
 uniform vec3 viewPos;
 
+//fog vars
+uniform vec4 skyColor;
+in float geomDistance;
+float density = 0.0015;
+float gradient = 2;
+
 in vec3 geomNormal;
 in vec3 geomFragPos;
 in vec2 geomTexCoords;
@@ -63,6 +69,7 @@ out vec4 FragColor;
 vec3 CalcDirLight(DirectionalLight light, vec3 geomNormal, vec3 viewDir);  
 vec3 CalcPointLight(PointLight light, vec3 geomNormal, vec3 geomFragPos, vec3 viewDir);  
 vec3 CalcSpotLight(SpotLight light, vec3 geomNormal, vec3 geomFragPos, vec3 viewDir);
+float CalcFogDensity();
 Material MixMaterials(Material[NR_MATERIALS] materials);
 
 void main()
@@ -79,10 +86,19 @@ void main()
     result += CalcPointLight(pointLights[i], norm, geomFragPos, viewDir);    
     // phase 3: Spot light
     result += CalcSpotLight(spotLight, norm, geomFragPos, viewDir);    
+
+    // phase 4: fog
+    result = mix(result, vec3(skyColor.x, skyColor.y, skyColor.z), CalcFogDensity());
     
     FragColor = vec4(result, 1.0);
 }
 
+float CalcFogDensity()
+{
+    float FogDensity = pow((geomDistance * density), gradient);
+    FogDensity = clamp(FogDensity, 0, 1);
+    return FogDensity;
+}
 
 Material MixMaterials(Material[NR_MATERIALS] materials)
 {

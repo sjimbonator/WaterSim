@@ -4,6 +4,7 @@ layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoords;
 
 uniform mat4 model;
+uniform vec3 viewPos;
 
 uniform float noisiness;
 uniform float heightMod;
@@ -44,7 +45,9 @@ float snoise(vec2 v){
 
 void main()
 {
-    float y = snoise(vec2(aPosition.x, aPosition.z) * vec2(noisiness, noisiness));
+    vec4 worldPosition = vec4(aPosition, 1.0);
+    //worldPosition *= model; //infinite plane
+    float y = snoise(vec2(worldPosition.x, worldPosition.z) * vec2(noisiness, noisiness));
     //if(y < 0) y *= 0.5;
     //else y*= heightMod;
     y*= heightMod;

@@ -86,6 +86,10 @@ namespace WaterSim
             if (Keyboard.GetState().IsKeyDown(Key.P)) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //Wireframe Mode
             else { GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); }
 
+            // infinite plane
+            //var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(camera.Position.X - 800f, -70f, camera.Position.Z - 800f));
+            //shapes[shapes.Count - 1].ModelMatrix = planeModel;
+
             foreach (Shape shape in shapes) shape.Draw();
 
             Context.SwapBuffers();
@@ -147,7 +151,7 @@ namespace WaterSim
                 shapes.Add(new Cube(new ColoredMaterial(new Vector3(1.0f, 1.0f, 1.0f)), model));
             }
 
-            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(-800f, -70f, -800f));
+            var planeModel = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(camera.Position.X - 800f, -70f, camera.Position.Z - 800f));
             shapes.Add(new Plane(new TerrainMaterial(), planeModel, 1600, 512));
 
             Lights = new Light[] {
